@@ -1,35 +1,41 @@
 from django.db import models
 from django.utils import timezone
 
-class Programa(models.Model):
-    nombre = models.CharField(max_length=250)
-    descripcion = models.TextField()
-    creado = models.DateTimeField(default=timezone.now)
-    actualizado = models.DateTimeField(auto_now=True)
+class Program(models.Model):
+    name = models.CharField(max_length=250)
+    description = models.TextField()
+    creation_date = models.DateTimeField(default=timezone.now)
+    update_date = models.DateTimeField(auto_now=True)
     
 
     def __str__(self):
-        return self.nombre
+        return self.name
     
-class Profesor(models.Model):
+class Teacher(models.Model):
 
-    class Cargo(models.TextChoices):
-        FORMADOR = 'F', 'Formador'
-        COFORMADOR = 'CF', 'Coformador'
+    class Position(models.TextChoices):
+        TRAINER = 'F', 'Formador'
+        COTRAINER = 'CF', 'Coformador'
 
-    nombre = models.CharField(max_length=250)
-    apellido = models.CharField(max_length=250)
-    cargo = models.CharField(max_length=2,choices=Cargo.choices, default=Cargo.FORMADOR)
+    name = models.CharField(max_length=250)
+    last_name = models.CharField(max_length=250)
+    position = models.CharField(max_length=2,choices=Position.choices, default=Position.TRAINER)
+
+    def __str__(self):
+        return self.name
 
 class Cohorte(models.Model):
-    nombre = models.CharField(max_length=250)
-    fecha_inicio = models.DateField
-    fecha_finalizacion = models.DateField
-    duracion = models.IntegerField
-    cantidad_horas = models.IntegerField
-    programa = models.ForeignKey(Programa, on_delete=models.CASCADE)
-    tipo = models.CharField(max_length=250)
+    name = models.CharField(max_length=250)
+    start_date = models.DateField
+    end_date = models.DateField
+    duration = models.IntegerField
+    number_hours = models.IntegerField
+    program = models.ForeignKey(Program, on_delete=models.CASCADE)
+    kind = models.CharField(max_length=250)
 
-class ProfesorCohorte(models.Model):
-    id_profesor = models.ForeignKey(Profesor, on_delete=models.CASCADE)
+    def __str__(self):
+        return self.name
+
+class TeacherCohorte(models.Model):
+    id_teacher = models.ForeignKey(Teacher, on_delete=models.CASCADE)
     id_cohorte = models.ForeignKey(Cohorte, on_delete=models.CASCADE)
