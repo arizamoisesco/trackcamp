@@ -2,9 +2,13 @@
 {% block title %}Cohorte Timer{% endblock %}
 {% block content %}
     <h1>Información general</h1>
-    <form method="post">
+    <form  method="post">
         {{ form.as_p }}
-        {% csrf_token%}
+        {% csrf_token %}
         <input type="submit" value="Enviar">
     </form>
+
+    {% if end_time %}
+        <h1>El resultado de la cohorte es {{ end_time }}</h1>
+    {% endif %}
 {% endblock %}
