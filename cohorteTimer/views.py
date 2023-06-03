@@ -20,7 +20,7 @@ def record_time(request):
             print(end_time)
             end_time += timedelta(days=festives_days)
             #return HttpResponseRedirect('result')
-            return render(request, "register.html", {'end_time':end_time})
+            return render(request, "register.html", {'cohorte_duration': cohorte_duration, 'start_date': start_date, 'end_time':end_time, 'festives_days': festives_days})
     else:
         form = RegisterForm()     
     return render(request, 'register.html', {'form': form})
@@ -31,8 +31,10 @@ def time_cohorte(start_date, cohorte_duration):
     #Comprobamos que la información ingresada por el usuario tenga la fecha correcta
     #date = datetime.strptime(start_date, "%d/%m/%Y")
     # Convertimos los meses ingresados en dias
-    month_days = 20
+    #Cantidad de dias estandar en un mes (se tienen en cuenta todos para poder dar avance con el tema)
+    month_days = 30
     month_days_totales = cohorte_duration * month_days
+    print(month_days_totales)
     # Sumamos los valores para hacer el calculo
     future_date = start_date + timedelta(days=month_days_totales)
     return future_date

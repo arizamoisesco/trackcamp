@@ -9,6 +9,12 @@
     </form>
 
     {% if end_time %}
-        <h1>El resultado de la cohorte es {{ end_time }}</h1>
+        <h1>Tiempo de la cohorte</h1>
+        <ul>
+            <li>Cantidad de meses de duración de la cohote: {{ cohorte_duration }} meses</li>
+            <li>Fecha de inicio {{ start_date }}</li>
+            <li>Fecha de finalización {{ end_time }}</li>
+            <li>Cantidad de dias festivos: {{ festives_days }}</li>
+        </ul>
     {% endif %}
 {% endblock %}
