@@ -1,20 +1,25 @@
 {% extends "base.html" %}
 {% block title %}Cohorte Timer{% endblock %}
 {% block content %}
-    <h1>Información general</h1>
-    <form  method="post">
-        {{ form.as_p }}
-        {% csrf_token %}
-        <input type="submit" value="Enviar">
-    </form>
+    <section class="card text-center">
+        <h1 class="d-flex align-self-center">Información general</h1>
+        <hr class="border border-primary border-3 opacity-75">
+        <form  method="post" >
+            {{ form.as_p }}
+            {% csrf_token %}
+            {% if not end_time %}
+                <input type="submit" value="Enviar" class="btn btn-outline-primary">
+            {% endif %}
+        </form>
 
-    {% if end_time %}
-        <h1>Tiempo de la cohorte</h1>
-        <ul>
-            <li>Cantidad de meses de duración de la cohote: {{ cohorte_duration }} meses</li>
-            <li>Fecha de inicio {{ start_date }}</li>
-            <li>Fecha de finalización {{ end_time }}</li>
-            <li>Cantidad de dias festivos: {{ festives_days }}</li>
-        </ul>
-    {% endif %}
+        {% if end_time %}
+            <h1>Tiempo de la cohorte</h1>
+            <ul>
+                <li>Cantidad de meses de duración de la cohote: {{ cohorte_duration }} meses</li>
+                <li>Fecha de inicio {{ start_date }}</li>
+                <li>Fecha de finalización {{ end_time }}</li>
+                <li>Cantidad de dias festivos: {{ festives_days }}</li>
+            </ul>
+        {% endif %}
+    </section>
 {% endblock %}
