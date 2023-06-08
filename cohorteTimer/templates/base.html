@@ -10,9 +10,15 @@
   </head>
 </head>
 <body>
-    <main class="d-flex justify-content-center mx-auto p-2" style="height: 100%;">
+    <main class="p-2 d-flex justify-content-center align-items-center" style="min-height: 100vh;">
         {% block content %}
         {%  endblock %}
     </main>
+    <footer class="footer mt-auto fixed-bottom">
+        <div class="container text-center">
+            <h4>Hecho con amor por <a href="">@arizamoisesco</a></h5>
+        </div>
+        
+    </footer>
 </body>
 </html>

@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block title %}Cohorte Timer{% endblock %}
 {% block content %}
-    <section class="card text-center">
+    <section class="container flex-grow-1 card text-center">
         <h1 class="d-flex align-self-center">Información general</h1>
         <hr class="border border-primary border-3 opacity-75">
         <form  method="post" >
@@ -13,8 +13,8 @@
         </form>
 
         {% if end_time %}
-            <h1>Tiempo de la cohorte</h1>
-            <ul>
+            <h2>Tiempo de la cohorte</h2>
+            <ul class='list-unstyled'>
                 <li>Cantidad de meses de duración de la cohote: {{ cohorte_duration }} meses</li>
                 <li>Fecha de inicio {{ start_date }}</li>
                 <li>Fecha de finalización {{ end_time }}</li>
