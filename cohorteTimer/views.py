@@ -1,8 +1,5 @@
 from django.shortcuts import render
-from django.urls import reverse
-from django.http import HttpResponseRedirect, HttpResponse
 from .forms import RegisterForm
-from django.views.decorators.http import require_POST
 
 from datetime import datetime, timedelta, date
 import holidays
@@ -16,10 +13,10 @@ def record_time(request):
             cohorte_duration = form.cleaned_data['duration_cohorte']
             end_time = time_cohorte(start_date, cohorte_duration)
             festives_days = get_colombian_festivities(start_date,end_time)
-            print(f" Contidad de dias festivos: {festives_days}")
-            print(end_time)
+            #print(f" Contidad de dias festivos: {festives_days}")
+            #print(end_time)
             end_time += timedelta(days=festives_days)
-            #return HttpResponseRedirect('result')
+
             return render(request, "register.html", {'cohorte_duration': cohorte_duration, 'start_date': start_date, 'end_time':end_time, 'festives_days': festives_days})
     else:
         form = RegisterForm()     
@@ -35,25 +32,31 @@ def time_cohorte(start_date, cohorte_duration):
     month_days = 30
     month_days_totales = cohorte_duration * month_days
     print(month_days_totales)
+    #Guardamos en variable la fecha final
+    end_date = timedelta(days=month_days_totales)
     # Sumamos los valores para hacer el calculo
-    future_date = start_date + timedelta(days=month_days_totales)
+    future_date = start_date + end_date
+    number_day = future_date.weekday()
+    print(number_day)
+
+    if number_day == 5:
+        future_date = future_date + timedelta(days=2)
+        print(future_date)
+    elif number_day == 6:
+        future_date = future_date + timedelta(days=1)
+        print(future_date)
+    
     return future_date
 
 #Crear la función que determine los días festivos en Colombia
 def get_colombian_festivities(start_date, end_date):
-    festivals = holidays.CO(years=2023)
-    #festivals_list = date(2023, 1, 1) in festivals
-    #count_festivals = len(festivals)
+    current_year = datetime.now().year
+
+    festivals = holidays.CO(years=current_year)
+
     date_festivals = festivals.keys()
-    #festivals_list = [feast for feast in festivals if feast["date"].isocalendar()[0] == year][::-1]
+
     segment_date = [fecha for fecha in date_festivals if start_date <= fecha <= end_date]
     count_segment_date = len(segment_date)
     return count_segment_date
     
-
-# Función para mostrar el resultado en un template
-@require_POST
-def result(response):
-    form = RegisterForm()
-    # print(form)
-    return render(response, 'result.html', {"form": form})
