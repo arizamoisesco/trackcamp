@@ -12,10 +12,15 @@ def record_time(request):
             start_date = form.cleaned_data['start_cohorte']
             cohorte_duration = form.cleaned_data['duration_cohorte']
             end_time = time_cohorte(start_date, cohorte_duration)
+            print("Dia de finalización ",end_time.weekday())
             festives_days = get_colombian_festivities(start_date,end_time)
-            #print(f" Contidad de dias festivos: {festives_days}")
-            #print(end_time)
+
             end_time += timedelta(days=festives_days)
+
+            if end_time.weekday() == 5:
+                end_time = end_time + timedelta(days=2)
+            elif end_time.weekday() == 6:
+                end_time = end_time + timedelta(days=1)
 
             return render(request, "register.html", {'cohorte_duration': cohorte_duration, 'start_date': start_date, 'end_time':end_time, 'festives_days': festives_days})
     else:
@@ -38,13 +43,6 @@ def time_cohorte(start_date, cohorte_duration):
     future_date = start_date + end_date
     number_day = future_date.weekday()
     print(number_day)
-
-    if number_day == 5:
-        future_date = future_date + timedelta(days=2)
-        print(future_date)
-    elif number_day == 6:
-        future_date = future_date + timedelta(days=1)
-        print(future_date)
     
     return future_date
 
