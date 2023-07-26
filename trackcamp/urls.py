@@ -19,5 +19,6 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('record/', include('cohorteTimer.urls', namespace='cohorteTimer'))
+    path('record/', include('cohorteTimer.urls', namespace='cohorteTimer')),
+    path('monthcalculate/', include('classtimeConversion.urls')),
 ]
