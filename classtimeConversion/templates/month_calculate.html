@@ -1,4 +1,15 @@
 {% extends "base.html" %}
-{% block title %}Cohorte Timer{% endblock %}
+{% block title %}Month Calculate{% endblock %}
 {% block content %}
+
+    <form method="post">
+        {{ form.as_p }}
+        
+        <input type="submit" value="Enviar">
+        {% csrf_token %}
+    </form>
+    {% if month_delay_aprox %}
+        {{ month_delay_aprox }} Meses.
+    {% endif %}
+
 {% endblock %}
