@@ -3,6 +3,6 @@ from . import views
 
 app_name = 'cohorteTimer'
 
-urlpatterns = {
-    path('', views.record_time, name='record_time'),
-}
+urlpatterns = [
+    path('', views.record_time, name='record-time'),
+]

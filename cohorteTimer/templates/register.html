@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% block title %}Cohorte Timer{% endblock %}
 {% block content %}
+    {% include 'nav.html' %}
     <section class="container flex-grow-1 card text-center">
         <h1 class="d-flex align-self-center">Información general</h1>
         <hr class="border border-primary border-3 opacity-75">
@@ -20,6 +21,8 @@
                 <li>Fecha de finalización {{ end_time }}</li>
                 <li>Cantidad de dias festivos: {{ festives_days }}</li>
             </ul>
+            <a class="btn btn-outline-danger" href="{% url 'cohorteTimer:record_time' %}">Ingresar nueva fecha </a>
         {% endif %}
     </section>
+    {% include 'footer.html' %}
 {% endblock %}

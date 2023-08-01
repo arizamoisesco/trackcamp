@@ -22,7 +22,8 @@ def months_calculation (request):
             #month_delay_aprox = round(total_hours_delay / hour_month_aprox)
             month_delay_aprox = round(total_hours_delay / month_week)
 
-            return render(request, 'month_calculate.html',{'month_delay_aprox':month_delay_aprox})
+            return render(request, 'month_calculate.html',{'form': form, 'month_delay_aprox':month_delay_aprox})
+            
 
     else: 
         form = RegisterForm()
