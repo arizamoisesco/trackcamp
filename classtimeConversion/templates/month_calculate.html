@@ -2,18 +2,21 @@
 {% block title %}Month Calculate{% endblock %}
 {% block content %}
 {% include 'nav.html' %}
-
+<section class="container flex-grow-1 card text-center">
+    <h1 class="d-flex align-self-center">Determinar cuantos meses demora una cohorte</h1>
+    <hr class="border border-primary border-3 opacity-75">
     <form method="post">
         {{ form.as_p }}
         
-        <input type="submit" value="Enviar">
+        <input type="submit" value="Enviar" class="btn btn-outline-primary">
         {% csrf_token %}
     </form>
     <section>
         {% if month_delay_aprox %}
+            <h3>Resultado:</h3>
             {{ month_delay_aprox }} Meses.
         {% endif %}
     </section>
-    
-
+</section>
+{% include 'footer.html'%}
 {% endblock %}
